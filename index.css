@@ -1,0 +1,493 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* --- 1. Global Reset & Theme Variables --- */
+:root {
+  --color-bg-app: #f0f2f5;
+  --color-bg-card: #ffffff;
+  --color-bg-input: #f9fafb;
+  --color-border: #e5e7eb;
+  --color-border-subtle: #f3f4f6;
+  --color-text-main: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-primary: #4f46e5;
+  --color-primary-light: rgba(79, 70, 229, 0.1);
+  --color-primary-shadow: rgba(79, 70, 229, 0.3);
+  
+  --color-terminal-bg: #111827;
+  --color-terminal-inner: #0a0f1d;
+  --color-terminal-border: #1f2937;
+  --color-terminal-green: #10b981;
+  --color-terminal-blue: #38bdf8;
+  --color-terminal-purple: #a78bfa;
+  --color-terminal-red: #f43f5e;
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-app);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* --- 2. Header Styles --- */
+.app-header {
+  height: 60px;
+  background-color: var(--color-bg-card);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  flex-shrink: 0;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 1px 3px var(--color-primary-shadow);
+}
+
+.brand-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.app-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+.app-title span {
+  color: var(--color-text-muted);
+  font-weight: 400;
+  text-transform: none;
+  margin-left: 0.25rem;
+}
+
+.theme-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--color-border-subtle);
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.375rem;
+}
+
+/* --- 3. Main Split Workspace Frame --- */
+.workspace {
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* --- 4. Sidebar Control Panel --- */
+.sidebar {
+  width: 380px;
+  background-color: var(--color-bg-card);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.style-form {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.group-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.group-title {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--color-border-subtle);
+  padding-bottom: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.grid-row-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1rem;
+  row-gap: 0.75rem;
+}
+
+.control-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.control-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.control-value {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+}
+
+/* Form inputs & controls */
+.form-range-input {
+  width: 100%;
+  accent-color: var(--color-primary);
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 9999px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+}
+.form-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+}
+
+.form-color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-color-picker {
+  width: 40px;
+  height: 28px;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  padding: 0;
+  background: transparent;
+  display: block;
+}
+
+.form-color-label {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.form-select, .form-input-text {
+  width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  padding: 0.5rem;
+  background-color: var(--color-bg-input);
+  border-radius: 0.375rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.form-select:focus, .form-input-text:focus {
+  border-color: var(--color-primary);
+}
+
+.form-input-text {
+  font-family: var(--font-sans);
+}
+
+/* Reset button styling */
+.btn-reset {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  background-color: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-reset:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+}
+
+/* --- 5. Preview & Showcase Section (Right Panel) --- */
+.preview-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+
+/* Canvas Card styling */
+.canvas-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  position: relative;
+  min-height: 340px;
+}
+
+.canvas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.canvas-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-main);
+}
+
+.canvas-subtitle {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+}
+
+.canvas-display-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  overflow: auto;
+  position: relative;
+}
+
+/* Custom background dot grid pattern for preview stage */
+.grid-bg {
+  background-size: 20px 20px;
+  background-image: radial-gradient(#e5e7eb 1.5px, transparent 1.5px);
+  background-color: #fafbfc;
+}
+
+/* Custom interactive element preview */
+.element-preview {
+  user-select: none;
+  font-weight: 600;
+  overflow: hidden;
+  transition: box-shadow 0.1s ease, background 0.1s ease;
+  word-break: break-all;
+  text-align: center;
+}
+
+/* --- 6. Code Inspector Console / Terminal Layout --- */
+.terminal-card {
+  background-color: var(--color-terminal-bg);
+  border: 1px solid var(--color-terminal-border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  height: 230px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-terminal-border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.875rem;
+}
+
+.terminal-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.terminal-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-terminal-green);
+  box-shadow: 0 0 8px var(--color-terminal-green);
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-terminal-green);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn-copy {
+  background-color: #374151;
+  color: #ffffff;
+  border: none;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.btn-copy:hover {
+  background-color: #4b5563;
+}
+
+.terminal-display {
+  flex: 1;
+  overflow: auto;
+  background-color: var(--color-terminal-inner);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  line-height: 1.5;
+  font-size: 12px;
+  user-select: all;
+  margin: 0;
+  display: block;
+}
+
+.code-field {
+  font-family: var(--font-mono);
+  white-space: pre;
+}
+
+/* --- 7. Responsive Media Queries --- */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    height: auto;
+  }
+  
+  .app-header {
+    position: static;
+  }
+  
+  .workspace {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+  
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    height: auto;
+    overflow: visible;
+  }
+  
+  .preview-pane {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+}
